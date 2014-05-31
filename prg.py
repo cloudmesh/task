@@ -35,6 +35,7 @@ for host in hosts:
     print result[host].get(propagate=False)
 watch.stop("parallel")
 
-print "Parallel:", watch.get("sequential"), "s"
-print "Sequential:", watch.get("parallel"), "s"
+for timer in ["parallel", "sequential"]:
+    print timer, watch.get(timer), "s"
+
 
