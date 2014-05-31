@@ -1,8 +1,5 @@
-from cloudmesh_task.tasks import add
 from cloudmesh_task.tasks import cm_ssh
-
-print add(4,4)
-
+from cloudmesh.util.stopwatch import StopWatch
 
 hosts = ["india.futuregrid.org",
          "sierra.futuregrid.org",
@@ -10,24 +7,34 @@ hosts = ["india.futuregrid.org",
          "hotel.futuregrid.org"]
 
 result = {}
-"""
+
+watch = StopWatch()
+
+
+watch.start("sequential")
 for host in hosts:
     print host
     result[host] = cm_ssh("gvonlasz", host, "qstat")
+watch.stop("sequential")
 
 for host in hosts:
     print result[host]
-"""
+
 print "asynchronous calls"
 result = {}
+
+watch.start("parallel")
 for host in hosts:
     print host
     result[host] = cm_ssh.delay("gvonlasz", host, "qstat")
-
-
 
 print "gather results"
 
 for host in hosts:
     print host
     print result[host].get(propagate=False)
+watch.stop("parallel")
+
+print "Parallel:", watch.get("sequential"), "s"
+print "Sequential:", watch.get("parallel"), "s"
+
