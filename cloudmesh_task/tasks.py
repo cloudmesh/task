@@ -5,7 +5,8 @@ from sh import ssh
 
 @app.task
 def cm_ssh(username, host, command):
-    result = ssh("{0}@{1}".format(username, host), command)
+    #result = ssh("{0}@{1}".format(username, host), command)
+    result = "{0}@{1}:{2}".format(username, host, command)
     return result
 
 
