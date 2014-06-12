@@ -10,6 +10,7 @@
 
 from docopt import docopt
 import os
+import sys
 
 def main(arguments):
 
