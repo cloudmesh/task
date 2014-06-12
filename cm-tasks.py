@@ -19,7 +19,7 @@ def main(arguments):
         sys.exit(0)
             
     if arguments["start"]: 
-        os.system("celery worker --app=cloudmesh_task -l info")
+        os.system("celery worker --concurrency=10 --app=cloudmesh_task -l info")
 
     if arguments["stop"]: 
         os.system("sudo rabbitmqctl stop")
