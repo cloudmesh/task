@@ -1,5 +1,4 @@
-task
-----------------------------------------------------------------------
+# task
 
 Often you may want to execute a number of commands in parallel. This
 project shows an example on how to do this easily with Celery. 
@@ -14,10 +13,12 @@ via kwargs.
 
 In our example we simply devined a function such as::
 
-  @app.task
-  def cm_ssh(host, username, command):
-      result = ssh("{0}@{1}".format(username, host), command)
-      return str(result)
+```
+@app.task
+def cm_ssh(host, username, command):
+    result = ssh("{0}@{1}".format(username, host), command)
+    return str(result)
+``
 
 In our main program we can than call it with our Sequential or
 parallel constructs such as 
@@ -25,6 +26,7 @@ parallel constructs such as
 
 from cloudmesh_task.parallel import Parallel, Sequential::
 
+```
   hosts = ["server1.futuregrid.org",
            "server2.futuregrid.org",
            "server3.futuregrid.org",
@@ -37,6 +39,7 @@ from cloudmesh_task.parallel import Parallel, Sequential::
   result = Parallel(hosts, cm_ssh, 
                     username="gvonlasz", 
                     command="qstat")
+```
 
 The first command executes the task sequentially over the array given
 in the first parameter. The second one executes it in parallel
@@ -44,9 +47,12 @@ in the first parameter. The second one executes it in parallel
 
 First start in one terminal the celery server::
 
+```
   cm-task.py start
+```
 
 In a second version start the test program::
 
+```
   python prg.py
-
+```
